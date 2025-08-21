@@ -1,0 +1,7 @@
+{
+    "filter": "Opens the filter pallete",
+    "select": "Opens the selection pallete",
+    "rename": "Runs the renaming sequence",
+    "curr_dir": "Lists the files on the current directory",
+    "quit": "Ends the script"
+}
