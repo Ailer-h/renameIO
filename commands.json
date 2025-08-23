@@ -1,7 +1,26 @@
 {
-    "filter": "Opens the filter pallete",
-    "select": "Opens the selection pallete",
-    "rename": "Runs the renaming sequence",
-    "curr_dir": "Lists the files on the current directory",
-    "quit": "Ends the script"
+    "filter": {
+        "description": "Opens the filter pallete",
+        "n_of_args": 0
+    },
+    "select": {
+        "description": "Opens the selection pallete",
+        "n_of_args": 0
+    },
+    "rename": {
+        "description": "Runs the renaming sequence",
+        "n_of_args": 0
+    },
+    "list_dir": {
+        "description": "Lists the files on the current directory",
+        "n_of_args": 0
+    },
+    "set_dir": {
+        "description": "Sets the current directory",
+        "n_of_args": 1
+    },
+    "quit": {
+        "description": "Ends the script",
+        "n_of_args": 0
+    }
 }
