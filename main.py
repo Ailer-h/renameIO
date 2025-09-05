@@ -30,10 +30,11 @@ def main():
     while True:
         
         command = input("> ")
-        args: list | None = None
+        args: list = []
 
         if " " in command:
             command, *args = command.split()
+
 
         if command not in options.keys():
             print(f"{Fore.RED}[Invalid command]{Fore.WHITE} Choose a command from the list")
@@ -49,7 +50,12 @@ def main():
             
         print(f"Running {Fore.BLUE + command + Fore.WHITE}...")
 
-        ch.run_command(command, args)
+        command_args: dict = ch.get_arguments_for_functions(command, args)
+
+        if len(command_args) == 0:
+            ch.run_command(command)
+
+        ch.run_command(command, command_args)
 
 if __name__ == "__main__":
     main()
