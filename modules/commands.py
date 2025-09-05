@@ -82,7 +82,8 @@ class Renamer():
             filenames = reversed(filenames)
 
         for i, filename in enumerate(filenames, start=1):
-            if os.path.isdir(filename):
+
+            if os.path.isdir(os.path.abspath(os.path.join(self.curr_dir,filename))):
                 filename = Fore.YELLOW + filename + "/" + Fore.WHITE
             
             print(f"{str(i).zfill(min_leading)}. {filename}")
