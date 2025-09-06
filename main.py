@@ -1,8 +1,8 @@
 import colorama
 from colorama import Fore
-import os
 import modules.json_tools as json_tools
 from modules.commands import Renamer
+from modules.logger import log_error
 
 options: dict = json_tools.get_dict("commands.json")
 ch = Renamer()
@@ -37,7 +37,7 @@ def main():
 
 
         if command not in options.keys():
-            print(f"{Fore.RED}[Invalid command]{Fore.WHITE} Choose a command from the list")
+            log_error("Choose a command from the list", log_id="Invalid command")
             continue
 
         elif command == "quit":
@@ -45,7 +45,7 @@ def main():
             break
 
         elif command not in ch.commands:
-            print(f"{Fore.RED}[Error]{Fore.WHITE} Command module not found")
+            log_error("Command module not found")
             continue
             
         print(f"Running {Fore.BLUE + command + Fore.WHITE}...")

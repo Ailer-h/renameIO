@@ -3,6 +3,7 @@ import os
 from modules.json_tools import get_dict
 from modules.helper_tools import is_pos_is_in_list
 from modules.type_checker import TypeChecker
+from modules.logger import log_error, log_info
 
 class Renamer():
 
@@ -40,7 +41,7 @@ class Renamer():
 
     def get_arguments_for_function(self, command: str, arguments: list) -> dict:
         if command not in self.commands.keys():
-            print(f"{Fore.RED}[Error]{Fore.WHITE} Command module not found")
+            log_error("Command module not found")
             return {}
 
         new_args: dict = {}
@@ -69,8 +70,8 @@ class Renamer():
 
     def run_command(self, command: str, args: dict | None = None) -> None:
         if command not in self.commands.keys():
-            print(f"{Fore.RED}[Error]{Fore.WHITE} Command module not found")
-            return
+           log_error("Command module not found")
+           return
         
         command_info: dict = self.commands[command]
 
@@ -94,16 +95,15 @@ class Renamer():
     
     def set_dir(self, args: dict) -> None:
         if not os.path.isdir(args["directory"]):
-            print(f"{Fore.RED}[Error]{Fore.WHITE} Directory not found")
+            log_error("Directory not found")
             return
         
         self.curr_dir = args["directory"]
-        print(f"[RenameIO] set current directory as {args['directory']}")
-
+        log_info(f"set current directory as {args['directory']}")
 
     def list_all_files(self) -> None:
         if not self.curr_dir or not os.path.isdir(self.curr_dir):
-            print(f"{Fore.RED}[Error]{Fore.WHITE} The current directory is not available")
+            log_error("The current directory is not available")
             return
 
         filenames = os.listdir(self.curr_dir)
