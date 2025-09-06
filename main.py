@@ -50,7 +50,7 @@ def main():
             
         print(f"Running {Fore.BLUE + command + Fore.WHITE}...")
 
-        command_args: dict = ch.get_arguments_for_functions(command, args)
+        command_args: dict = ch.get_arguments_for_function(command, args)
 
         if len(command_args) == 0:
             ch.run_command(command)

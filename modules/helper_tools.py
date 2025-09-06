@@ -1,0 +1,15 @@
+def is_pos_is_in_list(pos: int, list: list) -> bool:
+    '''
+    Given an index and a list,
+    it checks weather or not that index is a valid index on that list
+    '''
+
+    return 0 <= pos < len(list)
+
+def text_to_bool(text: str) -> bool:
+    '''
+    Given a string, it determines the boolean value based on the
+    written value.
+    '''
+
+    return text.lower() == "true"

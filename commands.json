@@ -16,6 +16,7 @@
         "arguments": [
             {
                 "arg": "expand",
+                "arg_type": "bool",
                 "optional": true,
                 "default": false
             }
@@ -26,8 +27,8 @@
         "arguments": [
             {
                 "arg": "directory",
-                "optional": false,
-                "default": ""
+                "arg_type": "str",
+                "optional": false
             }
         ]
     },

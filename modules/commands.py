@@ -1,6 +1,7 @@
 from colorama import Fore
 import os
 from modules.json_tools import get_dict
+from modules.helper_tools import is_pos_is_in_list
 
 commands_info: dict = get_dict("commands.json")
 default_expantion_limt: int = 5
@@ -35,7 +36,7 @@ class Renamer():
         for func in self.commands.keys():
             self.commands[func]['arguments'] = commands_info[func]['arguments']
 
-    def get_arguments_for_functions(self, command: str, arguments: list) -> dict:
+    def get_arguments_for_function(self, command: str, arguments: list) -> dict:
         if command not in self.commands.keys():
             print(f"{Fore.RED}[Error]{Fore.WHITE} Command module not found")
             return {}
@@ -46,8 +47,21 @@ class Renamer():
         if len(expected_arguments) == 0:
             return {}
 
-        for arg_info in expected_arguments:
-            pass
+        for i, arg_info in enumerate(expected_arguments):
+            optional_arg: bool = arg_info.get("optional", True)
+
+            if not optional_arg and not is_pos_is_in_list(i, arguments):
+                return {}
+
+            if optional_arg:
+                if is_pos_is_in_list(i, arguments):
+                    new_args[arg_info['arg']] = arguments[i]
+
+                else:
+                    new_args[arg_info['arg']] = arg_info['default']
+            
+            else:
+                new_args[arg_info['arg']] = arguments[i]
 
         return new_args
 
@@ -79,20 +93,17 @@ class Renamer():
     def file_rename(self) -> None:
         print("Running file_rename")
     
-    def list_dir(self, args: list | None) -> None:
+    def list_dir(self, args: dict) -> None:
+        
         self.list_all_files()
     
-    def set_dir(self, args: list) -> None:
-        """
-        args: list = [new_directory]
-        """
-
-        if not os.path.isdir(args[0]):
+    def set_dir(self, args: dict) -> None:
+        if not os.path.isdir(args["directory"]):
             print(f"{Fore.RED}[Error]{Fore.WHITE} Directory not found")
             return
         
-        self.curr_dir = args[0]
-        print(f"[RenameIO] set current directory as {args[0]}")
+        self.curr_dir = args["directory"]
+        print(f"[RenameIO] set current directory as {args['directory']}")
 
 
     def list_all_files(self, expand: bool = False, limit: int | None = None, indents: int = 0, indent_type: str = "  ") -> None:
