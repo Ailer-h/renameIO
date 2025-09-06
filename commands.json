@@ -13,14 +13,7 @@
     },
     "list_dir": {
         "description": "Lists the files on the current directory",
-        "arguments": [
-            {
-                "arg": "expand",
-                "arg_type": "bool",
-                "optional": true,
-                "default": false
-            }
-        ]
+        "arguments": []
     },
     "set_dir": {
         "description": "Sets the current directory",

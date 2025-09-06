@@ -2,10 +2,7 @@ from colorama import Fore
 import os
 from modules.json_tools import get_dict
 from modules.helper_tools import is_pos_is_in_list
-
-commands_info: dict = get_dict("commands.json")
-default_expantion_limt: int = 5
-default_indent = "  "
+from modules.type_checker import TypeChecker
 
 class Renamer():
 
@@ -28,13 +25,18 @@ class Renamer():
                 }
         }
 
-        self.load_all_arguments()
+        self.commands_info: dict = get_dict("commands.json")
 
         self.curr_dir: str = os.getcwd()
 
+        self.type_checker = TypeChecker()
+
+        self.load_all_arguments()
+
+
     def load_all_arguments(self) -> None:
         for func in self.commands.keys():
-            self.commands[func]['arguments'] = commands_info[func]['arguments']
+            self.commands[func]['arguments'] = self.commands_info[func]['arguments']
 
     def get_arguments_for_function(self, command: str, arguments: list) -> dict:
         if command not in self.commands.keys():
@@ -78,13 +80,7 @@ class Renamer():
         else:
             self.commands[command]['function'](args)
 
-
-
     def dir_filter(self, args: list | None) -> None:
-        """
-        args: list = [file_type, on_filename]
-        """
-        
         print("Running dir_filter")
 
     def file_select(self) -> None:
@@ -94,7 +90,6 @@ class Renamer():
         print("Running file_rename")
     
     def list_dir(self, args: dict) -> None:
-        
         self.list_all_files()
     
     def set_dir(self, args: dict) -> None:
@@ -106,7 +101,7 @@ class Renamer():
         print(f"[RenameIO] set current directory as {args['directory']}")
 
 
-    def list_all_files(self, expand: bool = False, limit: int | None = None, indents: int = 0, indent_type: str = "  ") -> None:
+    def list_all_files(self) -> None:
         if not self.curr_dir or not os.path.isdir(self.curr_dir):
             print(f"{Fore.RED}[Error]{Fore.WHITE} The current directory is not available")
             return
@@ -123,6 +118,3 @@ class Renamer():
                 filename = Fore.YELLOW + filename + "/" + Fore.WHITE
             
             print(f"{str(i).zfill(min_leading)}. {filename}")
-
-            if expand:
-                self.list_all_files(limit=default_expantion_limt, indents=indents+1, indent_type=default_indent)
