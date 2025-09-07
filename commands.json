@@ -25,6 +25,30 @@
             }
         ]
     },
+    "set_pressets_dir": {
+        "description": "Sets the directory for pressets",
+        "arguments": [
+            {
+                "arg": "directory",
+                "arg_type": "str",
+                "optional": false
+            }
+        ]
+    },
+    "list_press": {
+        "description": "Lists all the pressets",
+        "arguments": []
+    },
+    "presset": {
+        "description": "Runs a presset",
+        "arguments": [
+            {
+                "arg": "presset_name",
+                "arg_type": "str",
+                "optional": false
+            }
+        ]
+    },
     "quit": {
         "description": "Ends the script",
         "arguments": []

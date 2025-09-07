@@ -23,12 +23,22 @@ class Renamer():
                 },
             "set_dir": {
                 "function" : self.set_dir,
-                }
+                },
+            "set_pressets_dir": {
+                "function" : self.set_pressets_dir,
+                },
+            "list_press": {
+                "function" : self.list_press,
+                },
+            "presset": {
+                "function" : self.presset,
+                },
         }
 
         self.commands_info: dict = get_dict("commands.json")
 
         self.curr_dir: str = os.getcwd()
+        self.pressets_dir: str = os.path.join(os.getcwd(), "pressets")
 
         self.type_checker = TypeChecker()
 
@@ -117,6 +127,13 @@ class Renamer():
         
         self.curr_dir = args["directory"]
         log_info(f"set current directory as {args['directory']}")
+
+    def set_pressets_dir(self) -> None:
+        print("Running set_pressets_dir...")
+    def list_press(self) -> None:
+        print("Running list_press...")
+    def presset(self) -> None:
+        print("Running presset...")
 
     def list_all_files(self) -> None:
         if not self.curr_dir or not os.path.isdir(self.curr_dir):

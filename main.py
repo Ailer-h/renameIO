@@ -29,6 +29,7 @@ def main():
 
     while True:
         
+        print()
         command = input("> ")
         args: list = []
 
