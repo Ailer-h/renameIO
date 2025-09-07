@@ -6,7 +6,8 @@ How to use is still a WIP.
 
 ## Used technologies.
 
-- Python,
+- Python;
+- UV.
 
 ## Used softwares.
 
