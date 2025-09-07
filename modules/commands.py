@@ -46,8 +46,9 @@ class Renamer():
 
         new_args: dict = {}
         expected_arguments: list = self.commands[command]["arguments"]
+        min_expected_args = self.get_minimum_required_args(expected_arguments)
 
-        if len(expected_arguments) == 0:
+        if len(expected_arguments) == 0 or len(arguments) < min_expected_args:
             return {}
 
         for i, arg_info in enumerate(expected_arguments):
@@ -67,6 +68,22 @@ class Renamer():
                 new_args[arg_info['arg']] = arguments[i]
 
         return new_args
+    
+    def get_minimum_required_args_for_function(self, command: str) -> int:
+        if command not in self.commands.keys():
+            log_error("Command module not found")
+            return -1
+        
+        return self.get_minimum_required_args(self.commands[command]["arguments"])
+
+    def get_minimum_required_args(self, expected_args: list) -> int:
+        min_required: int = 0
+
+        for arg in expected_args:
+            if not arg['optional']:
+                min_required += 1
+
+        return min_required
 
     def run_command(self, command: str, args: dict | None = None) -> None:
         if command not in self.commands.keys():
@@ -81,7 +98,7 @@ class Renamer():
         else:
             self.commands[command]['function'](args)
 
-    def dir_filter(self, args: list | None) -> None:
+    def dir_filter(self) -> None:
         print("Running dir_filter")
 
     def file_select(self) -> None:
@@ -90,7 +107,7 @@ class Renamer():
     def file_rename(self) -> None:
         print("Running file_rename")
     
-    def list_dir(self, args: dict) -> None:
+    def list_dir(self) -> None:
         self.list_all_files()
     
     def set_dir(self, args: dict) -> None:

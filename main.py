@@ -51,11 +51,18 @@ def main():
         print(f"Running {Fore.BLUE + command + Fore.WHITE}...")
 
         command_args: dict = ch.get_arguments_for_function(command, args)
+        min_required_args = ch.get_minimum_required_args_for_function(command)
+
+        if len(command_args) < min_required_args:
+            log_error(f"The function {command} expects {min_required_args} arguments.")
+            continue
 
         if len(command_args) == 0:
             ch.run_command(command)
 
-        ch.run_command(command, command_args)
+        else:
+            ch.run_command(command, command_args)
+
 
 if __name__ == "__main__":
     main()
