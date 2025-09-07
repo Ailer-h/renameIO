@@ -1,7 +1,10 @@
 import json
 
-# Accesses a json file and returns it as a dict
 def get_dict(filepath: str) -> dict:
+    '''
+    Accesses a JSON file and returns it as a dictionary
+    '''
+
     try:
         with open(filepath, 'r') as json_file:
             data = json.load(json_file)
@@ -11,6 +14,9 @@ def get_dict(filepath: str) -> dict:
         return {}
     
 def update_json(dictionary: dict, json_path: str) -> None:
+    '''
+    Updates an existing JSON file
+    '''
     try:
         with open(json_path, 'w') as json_file:
             json.dump(dictionary, json_file, indent=4)
