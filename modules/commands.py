@@ -4,6 +4,7 @@ from modules.json_tools import get_dict
 from modules.helper_tools import is_pos_is_in_list
 from modules.type_checker import TypeChecker
 from modules.logger import log_error, log_info
+from modules.filter import Filter
 
 class Renamer():
 
@@ -34,6 +35,8 @@ class Renamer():
                 "function" : self.presset,
                 },
         }
+
+        self.filter = Filter()
 
         self.commands_info: dict = get_dict("commands.json")
 

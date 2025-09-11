@@ -1,3 +1,5 @@
+from typing import Any
+
 def is_pos_is_in_list(pos: int, list: list) -> bool:
     '''
     Given an index and a list,
@@ -13,3 +15,11 @@ def text_to_bool(text: str) -> bool:
     '''
 
     return text.lower() == "true"
+
+def getIndex(element: Any, iterable: list | tuple | str) -> int | None:
+
+    try:
+        return iterable.index(element)
+    
+    except ValueError:
+        return None
