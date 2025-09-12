@@ -112,7 +112,15 @@ class Renamer():
             self.commands[command]['function'](args)
 
     def dir_filter(self) -> None:
-        print("Running dir_filter")
+        filtering_props: dict[str, str | list] = {}
+        
+        print("Creating a new filter: \n")
+        
+        for prop in vars(self.filter).keys():
+            print(f"Setting {prop} (leave empty if not filtered):")
+
+            filtering_props[prop] = input("> ")
+
 
     def file_select(self) -> None:
         print("Running file_select")
