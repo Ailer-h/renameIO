@@ -118,17 +118,28 @@ class Renamer():
             self.commands[command]['function'](args)
 
     def dir_filter(self) -> None:
+        if self.preference_handler.get_preference("auto_reset_filter"):
+            self.clear_filter()
+        
         filtering_props: dict[str, str | list] = {}
         
         print("Creating a new filter: \n")
         
         for prop in vars(self.filter).keys():
-            print(f"Setting {prop} (leave empty if not filtered):")
+            if prop == "in_title":
+                print(f"Setting {prop} (separate by comma for multiple):")
+            
+            else:
+                print(f"Setting {prop} (leave empty if not filtered):")
 
-            filtering_props[prop] = input("> ")
+            prop_value = input("> ")
+
+            if "," in prop_value:
+                prop_value = prop_value.split(",")
+            
+            filtering_props[prop] = prop_value
 
         self.filter.set_filter(filtering_props)
-
 
     def file_select(self) -> None:
         print("Running file_select")
@@ -138,6 +149,9 @@ class Renamer():
     
     def list_dir(self) -> None:
         self.list_all_files()
+
+        if self.preference_handler.get_preference("use_filter_once"):
+            self.clear_filter()
     
     def set_dir(self, args: dict) -> None:
         if not os.path.isdir(args["directory"]):
@@ -173,7 +187,7 @@ class Renamer():
 
         for i, filename in enumerate(filenames, start=1):
 
-            passes_filter: bool = self.filter.check_file(filename)                    
+            passes_filter: bool = self.filter.check_file(filename.split(".")[0])                    
             filtering_behaviour: str = self.preference_handler.get_preference("filtering_behaviour", "vanish")
 
             if os.path.isdir(os.path.abspath(os.path.join(self.curr_dir,filename))):

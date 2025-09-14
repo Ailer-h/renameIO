@@ -1,6 +1,8 @@
 {
 
     "filtering_behaviour": "vanish",
+    "auto_reset_filter": true,
+    "use_filter_once": false,
     
     "pressets_folder": "/pressets"
 
