@@ -5,11 +5,15 @@ from modules.helper_tools import is_pos_is_in_list
 from modules.type_checker import TypeChecker
 from modules.logger import log_error, log_info
 from modules.filter import Filter
+from modules.preference_handler import PreferenceHandler
 
 class Renamer():
 
     def __init__(self) -> None:
         self.commands = {
+            "clear_filter" : {
+                "function" : self.clear_filter,
+            },
             "filter": {
                 "function" : self.dir_filter,
                 },
@@ -39,11 +43,13 @@ class Renamer():
         self.filter = Filter()
 
         self.commands_info: dict = get_dict("commands.json")
+        self.user_preferences: dict = get_dict("preferences.json")
 
         self.curr_dir: str = os.getcwd()
         self.pressets_dir: str = os.path.join(os.getcwd(), "pressets")
 
         self.type_checker = TypeChecker()
+        self.preference_handler = PreferenceHandler(self.user_preferences)
 
         self.load_all_arguments()
 
@@ -121,6 +127,8 @@ class Renamer():
 
             filtering_props[prop] = input("> ")
 
+        self.filter.set_filter(filtering_props)
+
 
     def file_select(self) -> None:
         print("Running file_select")
@@ -141,10 +149,16 @@ class Renamer():
 
     def set_pressets_dir(self) -> None:
         print("Running set_pressets_dir...")
+    
     def list_press(self) -> None:
         print("Running list_press...")
+    
     def presset(self) -> None:
         print("Running presset...")
+
+    def clear_filter(self) -> None:
+        self.filter.clear_filter()
+        log_info("Filter reset")
 
     def list_all_files(self) -> None:
         if not self.curr_dir or not os.path.isdir(self.curr_dir):
@@ -159,7 +173,15 @@ class Renamer():
 
         for i, filename in enumerate(filenames, start=1):
 
+            passes_filter: bool = self.filter.check_file(filename)                    
+            filtering_behaviour: str = self.preference_handler.get_preference("filtering_behaviour", "vanish")
+
             if os.path.isdir(os.path.abspath(os.path.join(self.curr_dir,filename))):
                 filename = Fore.YELLOW + filename + "/" + Fore.WHITE
             
-            print(f"{str(i).zfill(min_leading)}. {filename}")
+            if passes_filter:
+                print(f"{str(i).zfill(min_leading)}. {filename}")
+
+            else:
+                if filtering_behaviour == "italics":
+                    print(f"\x1B[3m{str(i).zfill(min_leading)}. {filename}")

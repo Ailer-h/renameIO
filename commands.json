@@ -3,12 +3,12 @@
         "description": "Opens the filter pallete",
         "arguments": []
     },
-    "select": {
-        "description": "Opens the selection pallete",
+    "clear_filter": {
+        "description": "Clears the current filer",
         "arguments": []
     },
-    "rename": {
-        "description": "Runs the renaming sequence",
+    "select": {
+        "description": "Opens the selection pallete",
         "arguments": []
     },
     "list_dir": {
@@ -24,6 +24,10 @@
                 "optional": false
             }
         ]
+    },
+    "rename": {
+        "description": "Runs the renaming sequence",
+        "arguments": []
     },
     "set_pressets_dir": {
         "description": "Sets the directory for pressets",

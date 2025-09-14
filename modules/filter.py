@@ -10,6 +10,22 @@ class Filter():
         self.title: str = ""
         self.in_title: list[str] = []
 
+    def check_file(self, filename: str) -> bool:
+        if self.filetype:
+            if not filename.endswith(self.filetype):
+                return False
+            
+        if self.title:
+            if filename.split(".")[0] != self.title:
+                return False
+            
+        if self.in_title:
+            for string in self.in_title:
+                if string not in filename:
+                    return False
+                
+        return True
+
     def clear_filter(self) -> None:
         self.filetype: str = ""
         self.title: str = ""
