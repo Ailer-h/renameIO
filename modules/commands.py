@@ -7,7 +7,7 @@ from modules.logger import log_error, log_info
 from modules.filter import Filter
 from modules.preference_handler import PreferenceHandler
 
-class Renamer():
+class CommandHandler():
 
     def __init__(self) -> None:
         self.commands = {
