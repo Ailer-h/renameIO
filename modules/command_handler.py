@@ -5,6 +5,7 @@ from modules.helper_tools import is_pos_is_in_list
 from modules.type_checker import TypeChecker
 from modules.logger import log_error, log_info
 from modules.filter import Filter
+from modules.renaming import Renamer
 
 class CommandHandler():
 
@@ -40,6 +41,7 @@ class CommandHandler():
         }
 
         self.filter = Filter()
+        self.renamer = Renamer()
 
         self.commands_info: dict = get_dict("commands.json")
         self.user_preferences: dict = get_dict("preferences.json")
@@ -143,7 +145,8 @@ class CommandHandler():
         print("Running file_select")
 
     def file_rename(self) -> None:
-        print("Running file_rename")
+        print("Creating new renaming schema: \n")
+        self.renamer.open_rename_pallete()
     
     def list_dir(self) -> None:
         self.list_all_files()

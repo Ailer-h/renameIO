@@ -17,12 +17,12 @@ def show_commands(commands: dict) -> None:
 
         before = biggest_key - len(key)
 
-        curr_line = f"{Fore.BLUE + key + Fore.WHITE}{' ' * before} : {value['description']}"
+        curr_line = f"{Fore.LIGHTBLUE_EX + key + Fore.WHITE}{' ' * before} : {value['description']}"
 
         print(curr_line)
 
 def main():
-    print(f"Running {Fore.BLUE}RenameIO{Fore.WHITE} v0.1")
+    print(f"Running {Fore.LIGHTBLUE_EX}RenameIO{Fore.WHITE} v0.1")
     print("-" * 30)
     print("Commands:")
     show_commands(options)
@@ -42,14 +42,14 @@ def main():
             continue
 
         elif command == "quit":
-            print(f"{Fore.BLUE}Ending script...")
+            print(f"{Fore.LIGHTRED_EX}Ending script...")
             break
 
         elif command not in ch.commands:
             log_error("Command module not found")
             continue
             
-        print(f"Running {Fore.BLUE + command + Fore.WHITE}...")
+        print(f"Running {Fore.LIGHTBLUE_EX + command + Fore.WHITE}...\n")
 
         command_args: dict = ch.get_arguments_for_function(command, args)
         min_required_args = ch.get_minimum_required_args_for_function(command)
