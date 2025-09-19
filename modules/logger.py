@@ -12,7 +12,7 @@ def log(log_id: str, msg: str, id_colour: str | None = None):
 
 def log_error(message: str, log_id: str = "Error"):
     '''Logs an error to the command line'''
-    log(log_id, message, id_colour=Fore.RED)
+    log(log_id, message, id_colour=Fore.LIGHTRED_EX)
 
 def log_info(message: str, log_id: str = "RenameIO"):
     '''Logs generic information to the command line'''
