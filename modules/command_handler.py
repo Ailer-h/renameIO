@@ -5,7 +5,6 @@ from modules.helper_tools import is_pos_is_in_list
 from modules.type_checker import TypeChecker
 from modules.logger import log_error, log_info
 from modules.filter import Filter
-from modules.preference_handler import PreferenceHandler
 
 class CommandHandler():
 
@@ -49,7 +48,6 @@ class CommandHandler():
         self.pressets_dir: str = os.path.join(os.getcwd(), "pressets")
 
         self.type_checker = TypeChecker()
-        self.preference_handler = PreferenceHandler(self.user_preferences)
 
         self.load_all_arguments()
 
@@ -118,7 +116,7 @@ class CommandHandler():
             self.commands[command]['function'](args)
 
     def dir_filter(self) -> None:
-        if self.preference_handler.get_preference("auto_reset_filter"):
+        if self.user_preferences.get("auto_reset_filter"):
             self.clear_filter()
         
         filtering_props: dict[str, str | list] = {}
@@ -150,7 +148,7 @@ class CommandHandler():
     def list_dir(self) -> None:
         self.list_all_files()
 
-        if self.preference_handler.get_preference("use_filter_once"):
+        if self.user_preferences.get("use_filter_once"):
             self.clear_filter()
     
     def set_dir(self, args: dict) -> None:
@@ -188,7 +186,7 @@ class CommandHandler():
         for i, filename in enumerate(filenames, start=1):
 
             passes_filter: bool = self.filter.check_file(filename.split(".")[0])                    
-            filtering_behaviour: str = self.preference_handler.get_preference("filtering_behaviour", "vanish")
+            filtering_behaviour: str = self.user_preferences.get("filtering_behaviour", "vanish")
 
             if os.path.isdir(os.path.abspath(os.path.join(self.curr_dir,filename))):
                 filename = Fore.YELLOW + filename + "/" + Fore.WHITE
