@@ -147,6 +147,11 @@ class CommandHandler():
     def file_rename(self) -> None:
         print("Creating new renaming schema: \n")
         self.renamer.open_rename_pallete()
+
+        self.renamer.load_filter_obj(self.filter)
+
+        if self.user_preferences.get("auto_reset_filter"):
+            self.clear_filter(show_message=False)
     
     def list_dir(self) -> None:
         self.list_all_files()
