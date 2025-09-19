@@ -1,7 +1,7 @@
 import colorama
 from colorama import Fore
 import modules.json_tools as json_tools
-from modules.commands import CommandHandler
+from modules.command_handler import CommandHandler
 from modules.logger import log_error
 
 options: dict = json_tools.get_dict("commands.json")
