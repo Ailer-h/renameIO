@@ -119,7 +119,7 @@ class CommandHandler():
 
     def dir_filter(self) -> None:
         if self.user_preferences.get("auto_reset_filter"):
-            self.clear_filter()
+            self.clear_filter(show_message=False)
         
         filtering_props: dict[str, str | list] = {}
         
@@ -171,9 +171,11 @@ class CommandHandler():
     def presset(self) -> None:
         print("Running presset...")
 
-    def clear_filter(self) -> None:
+    def clear_filter(self, show_message: bool = True) -> None:
         self.filter.clear_filter()
-        log_info("Filter reset")
+
+        if show_message:
+            log_info("Filter reset")
 
     def list_all_files(self) -> None:
         if not self.curr_dir or not os.path.isdir(self.curr_dir):
