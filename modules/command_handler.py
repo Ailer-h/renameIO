@@ -188,6 +188,14 @@ class CommandHandler():
             return
 
         filenames = os.listdir(self.curr_dir)
+        
+        filtering_behaviour: str = self.user_preferences.get("filtering_behaviour", "vanish")
+        
+        print(filtering_behaviour)
+
+        if filtering_behaviour == "vanish":
+            filenames = list(filter(self.filter.check_file, filenames))
+
         min_leading = len(str(len(filenames)))
 
         if min_leading < 1:
@@ -195,8 +203,7 @@ class CommandHandler():
 
         for i, filename in enumerate(filenames, start=1):
 
-            passes_filter: bool = self.filter.check_file(filename.split(".")[0])                    
-            filtering_behaviour: str = self.user_preferences.get("filtering_behaviour", "vanish")
+            passes_filter: bool = self.filter.check_file(filename)                    
 
             if os.path.isdir(os.path.abspath(os.path.join(self.curr_dir,filename))):
                 filename = Fore.YELLOW + filename + "/" + Fore.WHITE
