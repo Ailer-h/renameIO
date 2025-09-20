@@ -4,6 +4,8 @@
     "auto_reset_filter": true,
     "use_filter_once": false,
     
-    "pressets_folder": "/pressets"
+    "pressets_folder": "/pressets",
+
+    "std_string_divider": ":"
 
 }

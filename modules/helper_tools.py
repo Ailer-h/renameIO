@@ -1,4 +1,6 @@
+import re
 from typing import Any
+from datetime import datetime
 
 def is_pos_is_in_list(pos: int, list: list) -> bool:
     '''
@@ -16,6 +18,12 @@ def text_to_bool(text: str) -> bool:
 
     return text.lower() == "true"
 
+def extract_from_brackets(text: str) -> list[str]:
+    '''
+    Given a string, the function returns all parameters inside curly braces
+    '''
+    return re.findall(r'\{([^}]*)\}', text)
+
 def getIndex(element: Any, iterable: list | tuple | str) -> int | None:
 
     try:
@@ -23,3 +31,16 @@ def getIndex(element: Any, iterable: list | tuple | str) -> int | None:
     
     except ValueError:
         return None
+    
+def get_now(str_format: str) -> str:
+    '''
+    Given a date format, it returns a date string
+    If the format is invalid, it returns the default as dd/mm/yyyy
+    '''
+
+
+    try:
+        return datetime.now().strftime(str_format)
+    
+    except ValueError:
+        return datetime.now().strftime("%d/%m/%Y")
