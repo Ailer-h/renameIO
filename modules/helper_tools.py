@@ -38,6 +38,13 @@ def get_now(str_format: str) -> str:
     If the format is invalid, it returns the default as dd/mm/yyyy
     '''
 
+    base_cases: dict = {
+        "y/m/d": "%y/%B/%d",
+        "d/m/y": "%d/%B/%y"
+    }
+
+    if str_format in base_cases.keys():
+        str_format = base_cases[str_format]
 
     try:
         return datetime.now().strftime(str_format)
