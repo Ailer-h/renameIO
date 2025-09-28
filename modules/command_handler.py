@@ -145,10 +145,11 @@ class CommandHandler():
         print("Running file_select")
 
     def file_rename(self) -> None:
+        self.renamer.load_filter_obj(self.filter)
+        self.renamer.load_curr_dir(self.curr_dir)
+
         print("Creating new renaming schema: \n")
         self.renamer.open_rename_pallete()
-
-        self.renamer.load_filter_obj(self.filter)
 
         if self.user_preferences.get("auto_reset_filter"):
             self.clear_filter(show_message=False)
@@ -191,8 +192,6 @@ class CommandHandler():
         
         filtering_behaviour: str = self.user_preferences.get("filtering_behaviour", "vanish")
         
-        print(filtering_behaviour)
-
         if filtering_behaviour == "vanish":
             filenames = list(filter(self.filter.check_file, filenames))
 
