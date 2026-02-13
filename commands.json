@@ -4,7 +4,7 @@
         "arguments": []
     },
     "clear_filter": {
-        "description": "Clears the current filer",
+        "description": "Clears the current filter",
         "arguments": []
     },
     "select": {
