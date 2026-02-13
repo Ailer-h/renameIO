@@ -21,5 +21,5 @@ Fundamentally it is a settings file, you can set the properties to better fit yo
 
 ## Used softwares.
 
--   Git - Controle de versão;
--   VSCode - Edição de código.
+-   Git - Version control;
+-   VSCode - Code editing.
